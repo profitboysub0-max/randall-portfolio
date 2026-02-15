@@ -103,7 +103,7 @@ function App() {
         {/* Contact Section */}
         <motion.section variants={fadeInUp}>
           <h2 className="text-3xl font-semibold mb-4">Contact</h2>
-          <p className="text-gray-400">Email: your@email.com</p>
+          <p className="text-gray-400">Email: rchapman16@student.alamo.edu</p> 
         </motion.section>
 
         {/* Contact Form */}
