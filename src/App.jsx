@@ -200,13 +200,23 @@ function App() {
               </div>
             </div>
 
-            <div className="hud-card space-y-4">
-              <img
-                src={project1}
-                alt="Randall Chapman-Bey"
-                className="mx-auto h-28 w-28 rounded-full border-2 border-cyan-300/70 object-cover shadow-[0_0_35px_rgba(34,211,238,0.45)] md:h-36 md:w-36"
-              />
-              <p className="text-center text-xs tracking-[0.24em] text-cyan-200">FLIGHT STATUS: ACTIVE</p>
+            <div className="hud-card">
+              <div className="flex flex-col items-center p-4 pt-6">
+                <img
+                  src={project1}
+                  alt="Randall Chapman-Bey"
+                  className="h-8 w-8 rounded-full border border-cyan-300/60 object-cover md:h-10 md:w-10"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    maxWidth: "40px",
+                    maxHeight: "40px",
+                    position: "relative",
+                    top: "0.3cm"
+                  }}
+                />
+                <p className="mt-2 text-center text-xs tracking-[0.24em] text-cyan-200">FLIGHT STATUS: ACTIVE</p>
+              </div>
               <p className="text-center text-sm text-slate-300">
                 Computer Science major at San Antonio College with IT and project management internship experience.
               </p>
@@ -220,7 +230,9 @@ function App() {
             <Code2 className="text-cyan-300" size={22} />
           </div>
           <div className="grid gap-4 md:grid-cols-1">
-            {projectAccomplishments.map((project) => (
+            {projectAccomplishments.map((project) => {
+              const Icon = project.icon;
+              return (
               <article key={project.project} className="hud-card p-5 md:p-6">
                 <div className="mb-4 flex items-start justify-between gap-4">
                   <div>
@@ -228,7 +240,7 @@ function App() {
                     <p className="text-sm text-cyan-200">{project.stack}</p>
                   </div>
                   <span className="inline-flex rounded-md border border-cyan-300/40 bg-cyan-400/10 p-2 text-cyan-200">
-                    {project.icon({ size: 18 })}
+                    <Icon size={18} />
                   </span>
                 </div>
                 <ul className="space-y-2 text-sm text-slate-300">
@@ -237,7 +249,8 @@ function App() {
                   ))}
                 </ul>
               </article>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -263,10 +276,12 @@ function App() {
         <section className="mb-8 md:mb-12">
           <h2 className="font-orbitron mb-4 text-xl text-cyan-200 md:text-2xl">Skill Matrix</h2>
           <div className="grid gap-4 md:grid-cols-3">
-            {skillDeck.map((item) => (
+            {skillDeck.map((item) => {
+              const Icon = item.icon;
+              return (
               <article key={item.title} className="hud-card p-5">
                 <div className="mb-3 flex items-center gap-2 text-cyan-200">
-                  {item.icon({ size: 18 })}
+                  <Icon size={18} />
                   <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 </div>
                 <ul className="space-y-1 text-sm text-slate-300">
@@ -275,7 +290,8 @@ function App() {
                   ))}
                 </ul>
               </article>
-            ))}
+              );
+            })}
           </div>
         </section>
 
