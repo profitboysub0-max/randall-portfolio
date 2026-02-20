@@ -1,3 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: #dbeafe;
+  background-color: #030712;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 12% 20%, #11203a 0%, #050b1e 35%, #02040c 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-orbitron {
+  font-family: "Orbitron", "Space Grotesk", sans-serif;
+}
+
+.space-canvas {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.space-canvas__stars,
+.space-canvas__orbit {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.space-canvas__stars {
+  background-image: radial-gradient(2px 2px at 25px 35px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 120px 80px, rgba(125, 211, 252, 0.8), transparent),
+    radial-gradient(1.2px 1.2px at 220px 160px, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1.3px 1.3px at 340px 40px, rgba(56, 189, 248, 0.75), transparent),
+    radial-gradient(1.5px 1.5px at 520px 120px, rgba(255, 255, 255, 0.6), transparent);
+  background-size: 580px 280px;
+  opacity: 0.45;
+  animation: drift 26s linear infinite;
+}
+
+.space-canvas__orbit {
+  background: radial-gradient(circle at 80% 18%, rgba(34, 211, 238, 0.2), transparent 40%),
+    linear-gradient(120deg, rgba(6, 182, 212, 0.05), rgba(15, 23, 42, 0.3), rgba(14, 116, 144, 0.05));
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  opacity: 0.75;
+}
+
+.hud-panel,
+.hud-card {
+  background: linear-gradient(160deg, rgba(8, 47, 73, 0.5), rgba(15, 23, 42, 0.55));
+  border: 1px solid rgba(125, 211, 252, 0.26);
+  border-radius: 1rem;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1) inset, 0 16px 45px rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.hud-grid {
+  display: grid;
+}
+
+.hud-card {
+  position: relative;
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.hud-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background: linear-gradient(120deg, rgba(34, 211, 238, 0.3), transparent, rgba(125, 211, 252, 0.2)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hud-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(103, 232, 249, 0.45);
+  box-shadow: 0 0 32px rgba(34, 211, 238, 0.2), 0 20px 40px rgba(2, 6, 23, 0.7);
+}
+
+.action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.45);
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.45rem 0.9rem;
+  color: #dff6ff;
+  text-decoration: none;
+  transition: border-color 200ms ease, transform 200ms ease, background-color 200ms ease;
+}
+
+.action-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(165, 243, 252, 0.85);
+  background: rgba(8, 145, 178, 0.2);
+}
+
+.hud-input {
+  width: 100%;
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  border-radius: 0.65rem;
+  background: rgba(15, 23, 42, 0.75);
+  color: #e2e8f0;
+  padding: 0.75rem 0.85rem;
+}
+
+.hud-input:focus {
+  outline: none;
+  border-color: rgba(103, 232, 249, 0.8);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
+}
+
+.launch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  border: 1px solid rgba(34, 211, 238, 0.6);
+  border-radius: 0.65rem;
+  padding: 0.72rem 1rem;
+  color: #082f49;
+  background: linear-gradient(90deg, #67e8f9, #a5f3fc);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.launch-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(34, 211, 238, 0.35);
+}
+
+.launch-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.status-note {
+  margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  border-radius: 0.65rem;
+  border: 1px solid transparent;
+  padding: 0.5rem 0.7rem;
+}
+
+.status-note--success {
+  color: #ccfbf1;
+  border-color: rgba(45, 212, 191, 0.5);
+  background: rgba(20, 184, 166, 0.12);
+}
+
+.status-note--error {
+  color: #fee2e2;
+  border-color: rgba(248, 113, 113, 0.55);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.project-timeline {
+  position: relative;
+  padding-left: 1.65rem;
+}
+
+.project-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.28rem;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.8), rgba(34, 211, 238, 0.35));
+}
+
+.project-timeline::after {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.3rem;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: #67e8f9;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.9);
+  animation: mission-scan 4.2s ease-in-out infinite;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0.1rem 0 1rem 0.25rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item__dot {
+  position: absolute;
+  left: -1.58rem;
+  top: 0.4rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  border: 2px solid rgba(103, 232, 249, 0.95);
+  background: rgba(10, 25, 47, 1);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.6);
+}
+
+.timeline-item__phase {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: rgba(165, 243, 252, 0.8);
+  text-transform: uppercase;
+}
+
+.timeline-item__title {
+  margin: 0.2rem 0;
+  font-size: 1rem;
+  color: #f8fafc;
+}
+
+.timeline-item__detail {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #cbd5e1;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-120px, -70px, 0);
+  }
+}
+
+@keyframes mission-scan {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(300px);
+    opacity: 1;
+  }
+}
