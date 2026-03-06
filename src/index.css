@@ -17,7 +17,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at 12% 20%, #11203a 0%, #050b1e 35%, #02040c 100%);
+  background: radial-gradient(circle at 12% 20%, #132848 0%, #050b1e 35%, #02040c 100%);
+  background-attachment: fixed;
 }
 
 #root {
@@ -32,6 +33,19 @@ body {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.space-canvas::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  right: -120px;
+  top: -100px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.24), rgba(34, 211, 238, 0.03) 65%, transparent 70%);
+  filter: blur(2px);
+  pointer-events: none;
 }
 
 .space-canvas__stars,
@@ -113,6 +127,62 @@ body {
   transform: translateY(-2px);
   border-color: rgba(165, 243, 252, 0.85);
   background: rgba(8, 145, 178, 0.2);
+}
+
+.status-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  background: rgba(8, 47, 73, 0.5);
+  color: #c9f9ff;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metric-cell {
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  border-radius: 0.75rem;
+  background: rgba(2, 6, 23, 0.55);
+  padding: 0.75rem 0.8rem;
+}
+
+.metric-cell__label {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.85);
+}
+
+.metric-cell__value {
+  margin: 0.35rem 0 0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #f8fafc;
+}
+
+.launch-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-decoration: none;
 }
 
 .hud-input {
@@ -269,5 +339,11 @@ body {
   50% {
     transform: translateY(300px);
     opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
   }
 }

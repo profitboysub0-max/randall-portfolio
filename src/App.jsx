@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
   ArrowUpRight,
+  BadgeCheck,
+  CalendarClock,
   CheckCircle2,
   Code2,
   Cpu,
@@ -13,13 +15,25 @@ import {
   Send,
   Server,
   Shield,
+  Sparkles,
   SatelliteDish,
-  Terminal,
   XCircle
 } from "lucide-react";
 import project1 from "./assets/project1.png.jpg";
 
 const projectAccomplishments = [
+  {
+    project: "NVC Wildcats AI & Cloud Club Website",
+    stack: "HTML + CSS + JavaScript + GitHub + Vercel",
+    icon: Globe,
+    accomplishments: [
+      "Set up a complete multi-page site scaffold with shared assets, CSS, and JavaScript structure.",
+      "Created and wired core pages for About, Experience, Announcements, Livestream, Members, Speakers, Arcade, Animation, and Feedback.",
+      "Implemented a neon-themed visual system with reusable layout, card, form, and responsive styles.",
+      "Added a shared navigation bar across all pages with active-page highlighting and accessibility attributes.",
+      "Launched locally for debugging, validated routes, and pushed the completed work to the forked GitHub repository."
+    ]
+  },
   {
     project: "Put Me On - Social Music Platform",
     stack: "React + TypeScript + Convex + Clerk",
@@ -81,6 +95,11 @@ const missionTimeline = [
     phase: "Phase 05",
     title: "Portfolio Mission Control",
     detail: "Deployed this NASA-themed portfolio to present your implementation history and contact pipeline."
+  },
+  {
+    phase: "Phase 06",
+    title: "Club Website Delivery",
+    detail: "Built and published the Wildcats AI & Cloud Club web experience with cross-page architecture and polished UI."
   }
 ];
 
@@ -103,6 +122,18 @@ const skillDeck = [
 ];
 
 const CONTACT_API_URL = "/api/contact";
+const latestLaunches = [
+  {
+    label: "Live Club Site",
+    href: "https://randall-portfolio-tau.vercel.app/",
+    helper: "Newest polished deployment"
+  },
+  {
+    label: "Club Website Repo",
+    href: "https://github.com/profitboysub0-max/cloud-computing-club-website",
+    helper: "Source and version history"
+  }
+];
 
 function App() {
   const [formData, setFormData] = useState({
@@ -181,6 +212,14 @@ function App() {
                 Full-Stack Developer focused on secure systems, modern React applications, and deployment-ready
                 engineering workflows.
               </p>
+              <div className="status-cluster">
+                <span className="status-chip">
+                  <Sparkles size={14} /> Fresh Build: Wildcats Club Website
+                </span>
+                <span className="status-chip">
+                  <CalendarClock size={14} /> Updated March 2026
+                </span>
+              </div>
 
               <div className="flex flex-wrap gap-3 text-sm">
                 <a href="https://github.com/profitboysub0-max/" target="_blank" rel="noreferrer" className="action-pill">
@@ -197,6 +236,21 @@ function App() {
                 <a href="mailto:profiboysub0@gmail.com" className="action-pill">
                   <Mail size={16} /> Email
                 </a>
+              </div>
+
+              <div className="metrics-grid">
+                <div className="metric-cell">
+                  <p className="metric-cell__label">Projects Shipped</p>
+                  <p className="metric-cell__value">4+</p>
+                </div>
+                <div className="metric-cell">
+                  <p className="metric-cell__label">Current Focus</p>
+                  <p className="metric-cell__value">Cloud + AI</p>
+                </div>
+                <div className="metric-cell">
+                  <p className="metric-cell__label">Status</p>
+                  <p className="metric-cell__value">Open to Internships</p>
+                </div>
               </div>
             </div>
 
@@ -221,6 +275,30 @@ function App() {
                 Computer Science major at San Antonio College with IT and project management internship experience.
               </p>
             </div>
+          </div>
+        </section>
+
+        <section className="mb-8 md:mb-12">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 className="font-orbitron text-xl text-cyan-200 md:text-2xl">Latest Launches</h2>
+            <BadgeCheck className="text-cyan-300" size={22} />
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {latestLaunches.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="hud-card launch-link p-5 md:p-6"
+              >
+                <div>
+                  <p className="text-sm text-cyan-200">{item.helper}</p>
+                  <h3 className="mt-1 text-lg font-semibold text-white">{item.label}</h3>
+                </div>
+                <ArrowUpRight size={18} className="text-cyan-200" />
+              </a>
+            ))}
           </div>
         </section>
 
