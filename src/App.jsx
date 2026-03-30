@@ -23,6 +23,20 @@ import project1 from "./assets/project1.png.jpg";
 
 const projectAccomplishments = [
   {
+    project: "Project Honey Badger - Security Incident Response",
+    stack: "Windows + PowerShell + Native Windows Tooling + Incident Response",
+    icon: Shield,
+    variant: "cyber",
+    tag: "CYBER OPS // LIVE RESPONSE",
+    accomplishments: [
+      "Investigated a suspicious remote-control executable after signs of unauthorized remote access on a Windows host.",
+      "Correlated running processes with active network activity to isolate the source of malicious outbound behavior.",
+      "Identified malicious software using native Windows investigation tooling and validated the scope of host impact.",
+      "Executed the full incident response lifecycle: detection, analysis, containment, eradication, recovery, and documentation.",
+      "Demonstrated hands-on SOC-style triage and remediation skills in a real-world security investigation workflow."
+    ]
+  },
+  {
     project: "NVC Wildcats AI & Cloud Club Website",
     stack: "HTML + CSS + JavaScript + GitHub + Vercel",
     icon: Globe,
@@ -100,6 +114,11 @@ const missionTimeline = [
     phase: "Phase 06",
     title: "Club Website Delivery",
     detail: "Built and published the Wildcats AI & Cloud Club web experience with cross-page architecture and polished UI."
+  },
+  {
+    phase: "Phase 07",
+    title: "Honey Badger Incident Response",
+    detail: "Completed a real-world Windows security investigation involving remote access detection, malware identification, and full remediation."
   }
 ];
 
@@ -116,7 +135,7 @@ const skillDeck = [
   },
   {
     title: "Security & Systems",
-    points: ["JWT auth", "Linux CLI", "Firewall hardening", "PowerShell scripting"],
+    points: ["Incident response", "Windows host triage", "Firewall hardening", "PowerShell scripting"],
     icon: Shield
   }
 ];
@@ -209,12 +228,12 @@ function App() {
                 <span className="text-cyan-300"> Chapman-Bey</span>
               </h1>
               <p className="max-w-xl text-sm text-slate-300 md:text-lg">
-                Full-Stack Developer focused on secure systems, modern React applications, and deployment-ready
-                engineering workflows.
+                Full-Stack Developer focused on secure systems, hands-on incident response, modern React
+                applications, and deployment-ready engineering workflows.
               </p>
               <div className="status-cluster">
                 <span className="status-chip">
-                  <Sparkles size={14} /> Fresh Build: Wildcats Club Website
+                  <Sparkles size={14} /> Fresh Project: Honey Badger IR
                 </span>
                 <span className="status-chip">
                   <CalendarClock size={14} /> Updated March 2026
@@ -241,11 +260,11 @@ function App() {
               <div className="metrics-grid">
                 <div className="metric-cell">
                   <p className="metric-cell__label">Projects Shipped</p>
-                  <p className="metric-cell__value">4+</p>
+                  <p className="metric-cell__value">5+</p>
                 </div>
                 <div className="metric-cell">
                   <p className="metric-cell__label">Current Focus</p>
-                  <p className="metric-cell__value">Cloud + AI</p>
+                  <p className="metric-cell__value">Security + Cloud</p>
                 </div>
                 <div className="metric-cell">
                   <p className="metric-cell__label">Status</p>
@@ -310,23 +329,33 @@ function App() {
           <div className="grid gap-4 md:grid-cols-1">
             {projectAccomplishments.map((project) => {
               const Icon = project.icon;
+              const isCyber = project.variant === "cyber";
+
               return (
-              <article key={project.project} className="hud-card p-5 md:p-6">
-                <div className="mb-4 flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{project.project}</h3>
-                    <p className="text-sm text-cyan-200">{project.stack}</p>
+                <article
+                  key={project.project}
+                  className={isCyber ? "hud-card hud-card--cyber p-5 md:p-6" : "hud-card p-5 md:p-6"}
+                >
+                  <div className="mb-4 flex items-start justify-between gap-4">
+                    <div>
+                      {project.tag && (
+                        <p className={isCyber ? "project-tag project-tag--cyber" : "project-tag"}>{project.tag}</p>
+                      )}
+                      <h3 className="text-lg font-semibold text-white">{project.project}</h3>
+                      <p className={isCyber ? "project-stack project-stack--cyber" : "text-sm text-cyan-200"}>
+                        {project.stack}
+                      </p>
+                    </div>
+                    <span className={isCyber ? "project-icon project-icon--cyber" : "project-icon"}>
+                      <Icon size={18} />
+                    </span>
                   </div>
-                  <span className="inline-flex rounded-md border border-cyan-300/40 bg-cyan-400/10 p-2 text-cyan-200">
-                    <Icon size={18} />
-                  </span>
-                </div>
-                <ul className="space-y-2 text-sm text-slate-300">
-                  {project.accomplishments.map((item) => (
-                    <li key={item}>• {item}</li>
-                  ))}
-                </ul>
-              </article>
+                  <ul className={isCyber ? "project-copy project-copy--cyber" : "space-y-2 text-sm text-slate-300"}>
+                    {project.accomplishments.map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
+                  </ul>
+                </article>
               );
             })}
           </div>

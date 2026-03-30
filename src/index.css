@@ -110,6 +110,103 @@ body {
   box-shadow: 0 0 32px rgba(34, 211, 238, 0.2), 0 20px 40px rgba(2, 6, 23, 0.7);
 }
 
+.hud-card--cyber {
+  overflow: hidden;
+  border-color: rgba(52, 211, 153, 0.38);
+  background: linear-gradient(145deg, rgba(2, 44, 34, 0.82), rgba(3, 20, 28, 0.92));
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.16) inset, 0 18px 48px rgba(1, 8, 10, 0.72);
+}
+
+.hud-card--cyber::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent 42%),
+    repeating-linear-gradient(
+      180deg,
+      rgba(52, 211, 153, 0.08) 0,
+      rgba(52, 211, 153, 0.08) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.hud-card--cyber::after {
+  background: linear-gradient(120deg, rgba(74, 222, 128, 0.4), transparent, rgba(45, 212, 191, 0.28)) border-box;
+}
+
+.hud-card--cyber:hover {
+  border-color: rgba(110, 231, 183, 0.7);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.24), 0 22px 44px rgba(1, 8, 10, 0.78);
+}
+
+.hud-card--cyber > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 0.55rem;
+  padding: 0.28rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.32);
+  background: rgba(8, 47, 73, 0.38);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.86);
+}
+
+.project-tag--cyber {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: rgba(6, 78, 59, 0.32);
+  color: #a7f3d0;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.16);
+}
+
+.project-icon {
+  display: inline-flex;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  background: rgba(34, 211, 238, 0.08);
+  padding: 0.5rem;
+  color: #bae6fd;
+}
+
+.project-icon--cyber {
+  border-color: rgba(52, 211, 153, 0.5);
+  background: rgba(5, 46, 22, 0.45);
+  color: #bbf7d0;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.14);
+}
+
+.project-stack {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.project-stack--cyber {
+  color: #6ee7b7;
+}
+
+.project-copy {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.project-copy--cyber {
+  color: #d1fae5;
+  text-shadow: 0 0 14px rgba(16, 185, 129, 0.08);
+}
+
 .action-pill {
   display: inline-flex;
   align-items: center;
