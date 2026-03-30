@@ -10,6 +10,7 @@ import {
   Github,
   Globe,
   Linkedin,
+  LockKeyhole,
   Mail,
   Rocket,
   Send,
@@ -336,25 +337,40 @@ function App() {
                   key={project.project}
                   className={isCyber ? "hud-card hud-card--cyber p-5 md:p-6" : "hud-card p-5 md:p-6"}
                 >
-                  <div className="mb-4 flex items-start justify-between gap-4">
-                    <div>
-                      {project.tag && (
-                        <p className={isCyber ? "project-tag project-tag--cyber" : "project-tag"}>{project.tag}</p>
-                      )}
-                      <h3 className="text-lg font-semibold text-white">{project.project}</h3>
-                      <p className={isCyber ? "project-stack project-stack--cyber" : "text-sm text-cyan-200"}>
-                        {project.stack}
-                      </p>
+                  {isCyber && (
+                    <div className="cyber-scene" aria-hidden="true">
+                      <div className="cyber-scene__grid" />
+                      <div className="cyber-scene__beam" />
+                      <div className="cyber-scene__trace cyber-scene__trace--one" />
+                      <div className="cyber-scene__trace cyber-scene__trace--two" />
+                      <div className="cyber-scene__trace cyber-scene__trace--three" />
+                      <div className="cyber-scene__ring cyber-scene__ring--outer" />
+                      <div className="cyber-scene__ring cyber-scene__ring--mid" />
+                      <div className="cyber-scene__ring cyber-scene__ring--inner" />
+                      <LockKeyhole className="cyber-scene__lock" size={124} strokeWidth={1.35} />
                     </div>
-                    <span className={isCyber ? "project-icon project-icon--cyber" : "project-icon"}>
-                      <Icon size={18} />
-                    </span>
+                  )}
+                  <div className={isCyber ? "project-shell project-shell--cyber" : undefined}>
+                    <div className="mb-4 flex items-start justify-between gap-4">
+                      <div>
+                        {project.tag && (
+                          <p className={isCyber ? "project-tag project-tag--cyber" : "project-tag"}>{project.tag}</p>
+                        )}
+                        <h3 className="text-lg font-semibold text-white">{project.project}</h3>
+                        <p className={isCyber ? "project-stack project-stack--cyber" : "text-sm text-cyan-200"}>
+                          {project.stack}
+                        </p>
+                      </div>
+                      <span className={isCyber ? "project-icon project-icon--cyber" : "project-icon"}>
+                        <Icon size={18} />
+                      </span>
+                    </div>
+                    <ul className={isCyber ? "project-copy project-copy--cyber" : "space-y-2 text-sm text-slate-300"}>
+                      {project.accomplishments.map((item) => (
+                        <li key={item}>• {item}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className={isCyber ? "project-copy project-copy--cyber" : "space-y-2 text-sm text-slate-300"}>
-                    {project.accomplishments.map((item) => (
-                      <li key={item}>• {item}</li>
-                    ))}
-                  </ul>
                 </article>
               );
             })}
