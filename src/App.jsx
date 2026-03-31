@@ -113,8 +113,7 @@ const featuredProjects = [
       { label: "Start a Conversation", href: "#contact" }
     ],
     accent: "110 231 183",
-    image: "/honey-badger.jpg",
-    imageFallback: "/honey-badger.jpg?v=2",
+    image: "/honey-badger-2026.jpg",
     imageAlt: "Honey Badger cyber incident response illustration",
     imageWidth: 800,
     imageHeight: 1200,
@@ -779,7 +778,7 @@ function App() {
                     <div className="project-card__image-wrap">
                                                                   <img
                         src={project.image}
-                        srcSet={`${project.image} 1x, ${project.imageFallback || project.image} 2x`}
+                        srcSet={project.image}
                         sizes="(max-width: 820px) 92vw, 640px"
                         alt={project.imageAlt}
                         className="project-card__image"
@@ -1115,6 +1114,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
