@@ -777,7 +777,18 @@ function App() {
 
                   {project.image && (
                     <div className="project-card__image-wrap">
-                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading={project.imagePriority ? "eager" : "lazy"} decoding="async" width={project.imageWidth} height={project.imageHeight} />
+                                            <img
+                        src={project.image}
+                        srcSet={project.image}
+                        sizes="(max-width: 820px) 92vw, 640px"
+                        alt={project.imageAlt}
+                        className="project-card__image"
+                        loading={project.imagePriority ? "eager" : "lazy"}
+                        decoding="async"
+                        crossOrigin="anonymous"
+                        width={project.imageWidth}
+                        height={project.imageHeight}
+                      />
                     </div>
                   )}
 
@@ -1098,6 +1109,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
