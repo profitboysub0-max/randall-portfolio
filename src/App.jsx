@@ -1,161 +1,478 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowRight,
   ArrowUpRight,
   BadgeCheck,
-  CalendarClock,
+  BookOpenText,
+  BrainCircuit,
+  BriefcaseBusiness,
   CheckCircle2,
+  Cloud,
   Code2,
   Cpu,
   Database,
   Github,
-  Globe,
+  GraduationCap,
   Linkedin,
-  LockKeyhole,
   Mail,
+  MoonStar,
+  NotebookPen,
   Rocket,
   Send,
-  Server,
   Shield,
   Sparkles,
-  SatelliteDish,
+  SunMedium,
+  Workflow,
   XCircle
 } from "lucide-react";
-import project1 from "./assets/project1.png.jpg";
+import headshot from "./assets/project1.png.jpg";
+import honeyBadger from "./assets/honey-badger.png";
 
-const projectAccomplishments = [
+const heroMessages = [
+  "scalable cloud + AI-powered web apps.",
+  "realtime product experiences with energy.",
+  "secure systems that still feel human.",
+  "interactive builds that recruiters remember."
+];
+
+const availabilityTags = [
+  "Open to internships and junior roles",
+  "Frontend + backend + cloud mindset",
+  "Currently sharpening AI and security depth"
+];
+
+const impactStats = [
   {
-    project: "Project Honey Badger - Security Incident Response",
-    stack: "Windows + PowerShell + Native Windows Tooling + Incident Response",
-    icon: Shield,
-    variant: "cyber",
-    tag: "CYBER OPS // LIVE RESPONSE",
-    accomplishments: [
-      "Investigated a suspicious remote-control executable after signs of unauthorized remote access on a Windows host.",
-      "Correlated running processes with active network activity to isolate the source of malicious outbound behavior.",
-      "Identified malicious software using native Windows investigation tooling and validated the scope of host impact.",
-      "Executed the full incident response lifecycle: detection, analysis, containment, eradication, recovery, and documentation.",
-      "Demonstrated hands-on SOC-style triage and remediation skills in a real-world security investigation workflow."
-    ]
+    value: "7",
+    label: "Case studies",
+    detail: "Product, security, cloud, club, API, plugin, and concept work"
   },
   {
-    project: "NVC Wildcats AI & Cloud Club Website",
-    stack: "HTML + CSS + JavaScript + GitHub + Vercel",
-    icon: Globe,
-    accomplishments: [
-      "Set up a complete multi-page site scaffold with shared assets, CSS, and JavaScript structure.",
-      "Created and wired core pages for About, Experience, Announcements, Livestream, Members, Speakers, Arcade, Animation, and Feedback.",
-      "Implemented a neon-themed visual system with reusable layout, card, form, and responsive styles.",
-      "Added a shared navigation bar across all pages with active-page highlighting and accessibility attributes.",
-      "Launched locally for debugging, validated routes, and pushed the completed work to the forked GitHub repository."
-    ]
+    value: "20+",
+    label: "Feature systems",
+    detail: "Realtime feeds, auth, DMs, notifications, triage, deployment, and more"
   },
   {
-    project: "Put Me On - Social Music Platform",
-    stack: "React + TypeScript + Convex + Clerk",
-    icon: Rocket,
-    accomplishments: [
-      "Built a full social feed with song, playlist, and thought posts plus likes, reposts, comments, and share links.",
-      "Implemented direct messaging with conversation threads and unread message counters.",
-      "Shipped collaborative playlists with owner/collaborator permissions, track ordering, and playlist post sharing.",
-      "Added social graph features: follow/unfollow, profile search, notifications, and creator analytics dashboards.",
-      "Integrated web push notification subscription and dispatch pipelines for social events."
-    ]
+    value: "4",
+    label: "Build lanes",
+    detail: "Frontend, backend, cloud, and AI/security growth"
   },
   {
-    project: "Social Music REST API",
-    stack: "Node.js + Express + Sequelize + JWT",
-    icon: Server,
-    accomplishments: [
-      "Designed and connected relational models for users, songs, playlists, comments, favorites, and playlist-song joins.",
-      "Built JWT authentication flows with hashed passwords, token verification middleware, and protected routes.",
-      "Implemented playlist endpoints with included song relationships and authenticated playlist creation.",
-      "Delivered comment creation APIs scoped to authenticated users and song IDs.",
-      "Configured database connection + server bootstrap with synchronized models and API health route."
-    ]
-  },
-  {
-    project: "Clerk Next.js Auth Sandbox",
-    stack: "Next.js App Router + Clerk",
-    icon: Shield,
-    accomplishments: [
-      "Integrated ClerkProvider with SignIn/SignUp/UserButton states in the root app layout.",
-      "Configured Clerk middleware with route matchers that secure app and API/TRPC routes.",
-      "Established an auth-ready Next.js starter for secure feature rollout in future modules."
-    ]
+    value: "Open",
+    label: "Hiring status",
+    detail: "Available for internships, junior product engineering, and collaborations"
   }
 ];
 
-const missionTimeline = [
+const impactHighlights = [
+  "I ship features people can feel, not just APIs that exist.",
+  "I think in systems: UX, backend, delivery, and next-step monetization or growth.",
+  "I can move across product engineering, security investigations, and cloud-oriented execution."
+];
+
+const featuredProjects = [
   {
-    phase: "Phase 01",
-    title: "Backend Core Systems",
-    detail: "Shipped Express + Sequelize API with auth, playlists, songs, and comments resources."
+    title: "Put Me On",
+    eyebrow: "Flagship Build",
+    category: "Realtime Product",
+    summary:
+      "A social music platform with posts, collaborative playlists, direct messaging, notifications, analytics, and creator-friendly interactions.",
+    metric: "Feed + messaging + collaboration in one product surface",
+    stack: ["React", "TypeScript", "Convex", "Clerk", "Push Notifications"],
+    bullets: [
+      "Built song, playlist, and thought posts with likes, reposts, comments, and sharing.",
+      "Added direct messaging, unread counters, profile discovery, and notification flows.",
+      "Implemented collaborative playlist permissions and creator analytics dashboards."
+    ],
+    actions: [
+      { label: "Talk About This Build", href: "#contact" },
+      {
+        label: "GitHub Profile",
+        href: "https://github.com/profitboysub0-max/",
+        external: true
+      }
+    ],
+    accent: "77 228 255",
+    featured: true
   },
   {
-    phase: "Phase 02",
-    title: "Realtime Social Platform",
-    detail: "Built Convex-powered social music app with feed interactions, profiles, and following graph."
-  },
-  {
-    phase: "Phase 03",
-    title: "Messaging + Notifications",
-    detail: "Added direct messaging, unread counters, push subscriptions, and notification workflows."
-  },
-  {
-    phase: "Phase 04",
-    title: "Collaborative Playlists",
-    detail: "Implemented playlist ownership, collaborator controls, track management, and post sharing."
-  },
-  {
-    phase: "Phase 05",
-    title: "Portfolio Mission Control",
-    detail: "Deployed this NASA-themed portfolio to present your implementation history and contact pipeline."
-  },
-  {
-    phase: "Phase 06",
-    title: "Club Website Delivery",
-    detail: "Built and published the Wildcats AI & Cloud Club web experience with cross-page architecture and polished UI."
-  },
-  {
-    phase: "Phase 07",
     title: "Honey Badger Incident Response",
-    detail: "Completed a real-world Windows security investigation involving remote access detection, malware identification, and full remediation."
+    eyebrow: "Security Case",
+    category: "Threat Triage",
+    summary:
+      "A hands-on Windows incident response workflow focused on hostile remote access, process investigation, outbound traffic analysis, and remediation.",
+    metric: "Detection to documentation with native tooling and analyst thinking",
+    stack: ["PowerShell", "Windows", "Host Triage", "Incident Response"],
+    bullets: [
+      "Investigated suspicious remote-control behavior on a live Windows host.",
+      "Correlated processes and network activity to isolate the malicious executable.",
+      "Worked through containment, eradication, recovery, and reporting."
+    ],
+    actions: [
+      { label: "See My Journey", href: "#story" },
+      { label: "Start a Conversation", href: "#contact" }
+    ],
+    accent: "110 231 183",
+    image: honeyBadger,
+    imageAlt: "Honey Badger cyber incident response illustration"
+  },
+  {
+    title: "NVC Wildcats AI & Cloud Club",
+    eyebrow: "Live Delivery",
+    category: "Community Platform",
+    summary:
+      "A multi-page club site with reusable navigation, responsive layouts, neon branding, and a polished student-community experience.",
+    metric: "A deployed website that feels cohesive across pages and devices",
+    stack: ["HTML", "CSS", "JavaScript", "GitHub", "Vercel"],
+    bullets: [
+      "Created a shared scaffold across About, Experience, Announcements, Livestream, Members, and more.",
+      "Built a consistent visual system with responsive cards, forms, and layout patterns.",
+      "Published the finished work and validated the routes in a real deployment flow."
+    ],
+    actions: [
+      {
+        label: "View Live Site",
+        href: "https://randall-portfolio-tau.vercel.app/",
+        external: true
+      },
+      {
+        label: "Open Repository",
+        href: "https://github.com/profitboysub0-max/cloud-computing-club-website",
+        external: true
+      }
+    ],
+    accent: "255 179 71"
+  },
+  {
+    title: "Realtime Plugin Work",
+    eyebrow: "Experimental Systems",
+    category: "Unreal + WebSocket",
+    summary:
+      "A standout direction for engine-connected tooling and plugins that bridge realtime events, gameplay thinking, and networked interaction.",
+    metric: "The kind of cross-discipline work that makes a junior portfolio memorable",
+    stack: ["WebSockets", "Realtime Events", "Tooling", "Unreal Workflows"],
+    bullets: [
+      "Exploring event-driven patterns that can power connected gameplay or editor tooling.",
+      "Positioning plugin work as proof of systems thinking beyond standard CRUD apps.",
+      "Using this lane to highlight interest in immersive, interactive product surfaces."
+    ],
+    actions: [
+      { label: "Why This Matters", href: "#signature" },
+      { label: "Let’s Build Something", href: "#contact" }
+    ],
+    accent: "255 122 89"
+  },
+  {
+    title: "SkyBreak Aura Clash",
+    eyebrow: "Signature Concept",
+    category: "Game Systems",
+    summary:
+      "A combat-forward concept space that shows worldbuilding, systems design, visual identity, and the kind of ambition that separates a portfolio from a resume.",
+    metric: "Concept work used strategically to signal taste, range, and product imagination",
+    stack: ["Combat Loops", "UX Concepts", "Progression", "Game Feel"],
+    bullets: [
+      "Framed as a concept lane rather than pretending it is already a shipped game.",
+      "Useful for showing how you think about pacing, feedback, and memorable interaction.",
+      "Pairs naturally with plugin, cloud, and realtime experiments to create a unique narrative."
+    ],
+    actions: [
+      { label: "See the Signature Lane", href: "#signature" },
+      { label: "View Stack", href: "#stack" }
+    ],
+    accent: "199 146 255"
   }
 ];
 
-const skillDeck = [
+const stackGroups = [
   {
     title: "Frontend",
-    points: ["React", "JavaScript / TypeScript", "Tailwind", "Responsive UI"],
-    icon: Cpu
+    icon: Cpu,
+    focus: 92,
+    description: "Interfaces built to feel polished, responsive, and recruiter-friendly.",
+    tools: ["React", "JavaScript", "TypeScript", "Framer Motion", "Responsive UI"],
+    growth: "Sharpening premium visual storytelling and motion-heavy product surfaces."
   },
   {
     title: "Backend",
-    points: ["Node.js", "Express.js", "REST APIs", "Sequelize / SQL"],
-    icon: Database
+    icon: Database,
+    focus: 88,
+    description: "APIs, auth, data relationships, and the workflows behind the user-facing experience.",
+    tools: ["Node.js", "Express", "Sequelize", "REST APIs", "JWT"],
+    growth: "Continuing to deepen architecture decisions and reliability patterns."
   },
   {
-    title: "Security & Systems",
-    points: ["Incident response", "Windows host triage", "Firewall hardening", "PowerShell scripting"],
-    icon: Shield
+    title: "Cloud",
+    icon: Cloud,
+    focus: 76,
+    description: "Deployment-ready thinking with a growing cloud engineering lane.",
+    tools: ["Convex", "Vercel", "GitHub", "Realtime Sync", "Deployment Pipelines"],
+    growth: "Currently leaning harder into AWS and cloud system design."
+  },
+  {
+    title: "AI + Security",
+    icon: BrainCircuit,
+    focus: 74,
+    description: "Security investigations today, AI-powered product features tomorrow, and a path that connects both.",
+    tools: ["Incident Response", "Windows Triage", "PowerShell", "Prompt Thinking", "AI Roadmap"],
+    growth: "Actively growing cloud + AI depth while keeping a security mindset."
   }
 ];
+
+const storySteps = [
+  {
+    title: "Self-directed builder",
+    detail:
+      "I learned by building, debugging, redesigning, and shipping work that had to function in the real world.",
+    icon: Rocket
+  },
+  {
+    title: "Grounded in CS + internships",
+    detail:
+      "Formal study and internship experience gave structure to the momentum and helped sharpen teamwork, delivery, and execution.",
+    icon: GraduationCap
+  },
+  {
+    title: "Aiming at product engineering",
+    detail:
+      "The next chapter is cloud, AI, and secure systems work that combines technical depth with product intuition.",
+    icon: BriefcaseBusiness
+  }
+];
+
+const devLogs = [
+  {
+    title: "How I built a social music app with realtime energy",
+    readTime: "4 min read",
+    summary:
+      "A breakdown of the feed, collaboration model, messaging flow, and the decisions that made the product feel social instead of static.",
+    tags: ["Product Thinking", "Realtime", "React"]
+  },
+  {
+    title: "Fixing deployment friction without losing momentum",
+    readTime: "3 min read",
+    summary:
+      "A practical story about Vercel issues, project organization, and keeping the user-facing product moving while cleaning up the pipeline.",
+    tags: ["Deployment", "DX", "Iteration"]
+  },
+  {
+    title: "What incident response taught me about safer software",
+    readTime: "5 min read",
+    summary:
+      "Lessons from host triage and remediation that directly improve how I think about application trust, observability, and defensive defaults.",
+    tags: ["Security", "Systems", "Engineering Judgment"]
+  }
+];
+
+const signatureTags = [
+  "Music visualizer energy",
+  "Realtime sync",
+  "Cloud-backed interaction",
+  "Gameplay-inspired UX",
+  "Plugin experimentation"
+];
+
+const visualizerBars = [76, 42, 88, 58, 96, 64, 82, 48, 90, 54, 72, 44, 92, 62, 78, 50];
 
 const CONTACT_API_URL = "/api/contact";
-const latestLaunches = [
-  {
-    label: "Live Club Site",
-    href: "https://randall-portfolio-tau.vercel.app/",
-    helper: "Newest polished deployment"
-  },
-  {
-    label: "Club Website Repo",
-    href: "https://github.com/profitboysub0-max/cloud-computing-club-website",
-    helper: "Source and version history"
-  }
-];
+function TypeCycle({ items, reducedMotion }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion || items.length === 0) {
+      return undefined;
+    }
+
+    const currentItem = items[activeIndex];
+    const hasCompletedWord = displayText === currentItem;
+    const delay = isDeleting ? 34 : hasCompletedWord ? 1400 : 68;
+
+    const timeoutId = window.setTimeout(() => {
+      if (!isDeleting && !hasCompletedWord) {
+        setDisplayText(currentItem.slice(0, displayText.length + 1));
+        return;
+      }
+
+      if (!isDeleting && hasCompletedWord) {
+        setIsDeleting(true);
+        return;
+      }
+
+      if (isDeleting && displayText.length > 0) {
+        setDisplayText(currentItem.slice(0, displayText.length - 1));
+        return;
+      }
+
+      setIsDeleting(false);
+      setActiveIndex((current) => (current + 1) % items.length);
+    }, delay);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeIndex, displayText, isDeleting, items, reducedMotion]);
+
+  const renderedText = reducedMotion ? items[0] : displayText || items[activeIndex];
+
+  return (
+    <span className="type-cycle" aria-live="polite">
+      <span>{renderedText}</span>
+      <span className="type-cycle__cursor" aria-hidden="true">
+        |
+      </span>
+    </span>
+  );
+}
+
+function ParticleField({ theme, reducedMotion }) {
+  useEffect(() => {
+    const canvas = document.getElementById("particle-field");
+
+    if (!(canvas instanceof HTMLCanvasElement)) {
+      return undefined;
+    }
+
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      return undefined;
+    }
+
+    const palette =
+      theme === "dark"
+        ? {
+            dot: "rgba(143, 244, 255, 0.72)",
+            line: "rgba(91, 231, 255, 0.12)",
+            glow: "rgba(255, 177, 66, 0.08)"
+          }
+        : {
+            dot: "rgba(13, 148, 136, 0.72)",
+            line: "rgba(249, 115, 22, 0.1)",
+            glow: "rgba(8, 145, 178, 0.08)"
+          };
+
+    let width = 0;
+    let height = 0;
+    let frameId = 0;
+
+    const particleCount = window.innerWidth < 768 ? 26 : 46;
+    const particles = Array.from({ length: particleCount }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.0015,
+      vy: (Math.random() - 0.5) * 0.0015,
+      radius: Math.random() * 1.8 + 0.7
+    }));
+
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+
+    const drawFrame = () => {
+      context.clearRect(0, 0, width, height);
+
+      context.fillStyle = palette.glow;
+      context.beginPath();
+      context.arc(width * 0.18, height * 0.2, 180, 0, Math.PI * 2);
+      context.fill();
+      context.beginPath();
+      context.arc(width * 0.82, height * 0.3, 220, 0, Math.PI * 2);
+      context.fill();
+
+      particles.forEach((particle) => {
+        if (!reducedMotion) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+
+          if (particle.x <= 0 || particle.x >= 1) {
+            particle.vx *= -1;
+          }
+
+          if (particle.y <= 0 || particle.y >= 1) {
+            particle.vy *= -1;
+          }
+        }
+      });
+
+      for (let index = 0; index < particles.length; index += 1) {
+        const particle = particles[index];
+        const pointX = particle.x * width;
+        const pointY = particle.y * height;
+
+        context.fillStyle = palette.dot;
+        context.beginPath();
+        context.arc(pointX, pointY, particle.radius, 0, Math.PI * 2);
+        context.fill();
+
+        for (let comparisonIndex = index + 1; comparisonIndex < particles.length; comparisonIndex += 1) {
+          const comparison = particles[comparisonIndex];
+          const comparisonX = comparison.x * width;
+          const comparisonY = comparison.y * height;
+          const distance = Math.hypot(pointX - comparisonX, pointY - comparisonY);
+
+          if (distance < 140) {
+            context.strokeStyle = palette.line;
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(pointX, pointY);
+            context.lineTo(comparisonX, comparisonY);
+            context.stroke();
+          }
+        }
+      }
+
+      if (!reducedMotion) {
+        frameId = window.requestAnimationFrame(drawFrame);
+      }
+    };
+
+    resize();
+    drawFrame();
+    window.addEventListener("resize", resize);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [reducedMotion, theme]);
+
+  return <canvas id="particle-field" className="particle-field" aria-hidden="true" />;
+}
+
+function SectionHeading({ eyebrow, title, description }) {
+  return (
+    <div className="section-heading">
+      <p className="section-heading__eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+  );
+}
 
 function App() {
+  const prefersReducedMotion = useReducedMotion();
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") {
+      return "dark";
+    }
+
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      return savedTheme;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -166,6 +483,29 @@ function App() {
   const [formStartedAt, setFormStartedAt] = useState(() => Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: "idle", message: "" });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
+  const introMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.7, ease: "easeOut" }
+      };
+
+  const revealMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.18 },
+        transition: { duration: 0.65, ease: "easeOut" }
+      };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -201,13 +541,13 @@ function App() {
         throw new Error(result.message || "Failed to send message.");
       }
 
-      setSubmitStatus({ type: "success", message: "Transmission successful. I will reply soon." });
+      setSubmitStatus({ type: "success", message: "Message sent successfully. I will reply soon." });
       setFormData({ name: "", email: "", message: "", humanCheck: "", website: "" });
       setFormStartedAt(Date.now());
     } catch (error) {
       setSubmitStatus({
         type: "error",
-        message: error instanceof Error ? error.message : "Transmission failed. Please try again."
+        message: error instanceof Error ? error.message : "Message failed. Please try again."
       });
     } finally {
       setIsSubmitting(false);
@@ -215,289 +555,548 @@ function App() {
   };
 
   return (
-    <main className="space-canvas text-slate-100">
-      <div className="space-canvas__stars" aria-hidden="true" />
-      <div className="space-canvas__orbit" aria-hidden="true" />
+    <main className="site-shell">
+      <ParticleField theme={theme} reducedMotion={prefersReducedMotion} />
+      <div className="page-glow page-glow--one" aria-hidden="true" />
+      <div className="page-glow page-glow--two" aria-hidden="true" />
+      <div className="page-grid" aria-hidden="true" />
+      <div className="page-noise" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 py-10 md:px-8 md:py-16">
-        <section className="hud-panel mb-8 overflow-hidden md:mb-12">
-          <div className="hud-grid gap-8 p-6 md:grid-cols-[1.5fr_1fr] md:p-10">
-            <div className="space-y-6">
-              <p className="tracking-[0.32em] text-xs text-cyan-300/80">MISSION CONTROL // PORTFOLIO</p>
-              <h1 className="font-orbitron text-3xl leading-tight text-white md:text-6xl">
-                Randall
-                <span className="text-cyan-300"> Chapman-Bey</span>
-              </h1>
-              <p className="max-w-xl text-sm text-slate-300 md:text-lg">
-                Full-Stack Developer focused on secure systems, hands-on incident response, modern React
-                applications, and deployment-ready engineering workflows.
-              </p>
-              <div className="status-cluster">
-                <span className="status-chip">
-                  <Sparkles size={14} /> Fresh Project: Honey Badger IR
-                </span>
-                <span className="status-chip">
-                  <CalendarClock size={14} /> Updated March 2026
-                </span>
-              </div>
+      <div className="site-frame">
+        <header className="topbar">
+          <div className="container topbar__inner">
+            <a href="#home" className="brand" aria-label="Go to top of portfolio">
+              <span className="brand__mark" aria-hidden="true">
+                VP
+              </span>
+              <span className="brand__copy">
+                <strong>VEX PROFITUS</strong>
+                <small>Randall Chapman-Bey</small>
+              </span>
+            </a>
 
-              <div className="flex flex-wrap gap-3 text-sm">
-                <a href="https://github.com/profitboysub0-max/" target="_blank" rel="noreferrer" className="action-pill">
-                  <Github size={16} /> GitHub <ArrowUpRight size={14} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/randall-chapman-bey-488509253/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="action-pill"
-                >
-                  <Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} />
-                </a>
-                <a href="mailto:profiboysub0@gmail.com" className="action-pill">
-                  <Mail size={16} /> Email
-                </a>
-              </div>
+            <nav className="topbar__nav" aria-label="Primary">
+              <a href="#work">Work</a>
+              <a href="#signature">Signature</a>
+              <a href="#stack">Stack</a>
+              <a href="#story">Story</a>
+              <a href="#contact">Contact</a>
+            </nav>
 
-              <div className="metrics-grid">
-                <div className="metric-cell">
-                  <p className="metric-cell__label">Projects Shipped</p>
-                  <p className="metric-cell__value">5+</p>
-                </div>
-                <div className="metric-cell">
-                  <p className="metric-cell__label">Current Focus</p>
-                  <p className="metric-cell__value">Security + Cloud</p>
-                </div>
-                <div className="metric-cell">
-                  <p className="metric-cell__label">Status</p>
-                  <p className="metric-cell__value">Open to Internships</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="hud-card">
-              <div className="flex flex-col items-center p-4 pt-6">
-                <img
-                  src={project1}
-                  alt="Randall Chapman-Bey"
-                  className="h-8 w-8 rounded-full border border-cyan-300/60 object-cover md:h-10 md:w-10"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    maxWidth: "40px",
-                    maxHeight: "40px",
-                    position: "relative",
-                    top: "0.3cm"
-                  }}
-                />
-                <p className="mt-2 text-center text-xs tracking-[0.24em] text-cyan-200">FLIGHT STATUS: ACTIVE</p>
-              </div>
-              <p className="text-center text-sm text-slate-300">
-                Computer Science major at San Antonio College with IT and project management internship experience.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-8 md:mb-12">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="font-orbitron text-xl text-cyan-200 md:text-2xl">Latest Launches</h2>
-            <BadgeCheck className="text-cyan-300" size={22} />
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {latestLaunches.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="hud-card launch-link p-5 md:p-6"
+            <div className="topbar__actions">
+              <button
+                type="button"
+                className="theme-toggle"
+                onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
               >
-                <div>
-                  <p className="text-sm text-cyan-200">{item.helper}</p>
-                  <h3 className="mt-1 text-lg font-semibold text-white">{item.label}</h3>
-                </div>
-                <ArrowUpRight size={18} className="text-cyan-200" />
+                {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                <span>{theme === "dark" ? "Light" : "Dark"}</span>
+              </button>
+              <a href="#contact" className="button button--primary button--compact">
+                Hire Me <ArrowRight size={16} />
               </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-8 md:mb-12">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="font-orbitron text-xl text-cyan-200 md:text-2xl">Implementation Log</h2>
-            <Code2 className="text-cyan-300" size={22} />
-          </div>
-          <div className="grid gap-4 md:grid-cols-1">
-            {projectAccomplishments.map((project) => {
-              const Icon = project.icon;
-              const isCyber = project.variant === "cyber";
-
-              return (
-                <article
-                  key={project.project}
-                  className={isCyber ? "hud-card hud-card--cyber p-5 md:p-6" : "hud-card p-5 md:p-6"}
-                >
-                  {isCyber && (
-                    <div className="cyber-scene" aria-hidden="true">
-                      <div className="cyber-scene__grid" />
-                      <div className="cyber-scene__beam" />
-                      <div className="cyber-scene__trace cyber-scene__trace--one" />
-                      <div className="cyber-scene__trace cyber-scene__trace--two" />
-                      <div className="cyber-scene__trace cyber-scene__trace--three" />
-                      <div className="cyber-scene__ring cyber-scene__ring--outer" />
-                      <div className="cyber-scene__ring cyber-scene__ring--mid" />
-                      <div className="cyber-scene__ring cyber-scene__ring--inner" />
-                      <LockKeyhole className="cyber-scene__lock" size={124} strokeWidth={1.35} />
-                    </div>
-                  )}
-                  <div className={isCyber ? "project-shell project-shell--cyber" : undefined}>
-                    <div className="mb-4 flex items-start justify-between gap-4">
-                      <div>
-                        {project.tag && (
-                          <p className={isCyber ? "project-tag project-tag--cyber" : "project-tag"}>{project.tag}</p>
-                        )}
-                        <h3 className="text-lg font-semibold text-white">{project.project}</h3>
-                        <p className={isCyber ? "project-stack project-stack--cyber" : "text-sm text-cyan-200"}>
-                          {project.stack}
-                        </p>
-                      </div>
-                      <span className={isCyber ? "project-icon project-icon--cyber" : "project-icon"}>
-                        <Icon size={18} />
-                      </span>
-                    </div>
-                    <ul className={isCyber ? "project-copy project-copy--cyber" : "space-y-2 text-sm text-slate-300"}>
-                      {project.accomplishments.map((item) => (
-                        <li key={item}>• {item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="mb-8 md:mb-12">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="font-orbitron text-xl text-cyan-200 md:text-2xl">Mission Timeline</h2>
-            <SatelliteDish className="text-cyan-300" size={22} />
-          </div>
-          <article className="hud-card p-5 md:p-7">
-            <div className="project-timeline">
-              {missionTimeline.map((event) => (
-                <div key={event.phase} className="timeline-item">
-                  <div className="timeline-item__dot" aria-hidden="true" />
-                  <p className="timeline-item__phase">{event.phase}</p>
-                  <h3 className="timeline-item__title">{event.title}</h3>
-                  <p className="timeline-item__detail">{event.detail}</p>
-                </div>
-              ))}
             </div>
-          </article>
-        </section>
+          </div>
+        </header>
 
-        <section className="mb-8 md:mb-12">
-          <h2 className="font-orbitron mb-4 text-xl text-cyan-200 md:text-2xl">Skill Matrix</h2>
-          <div className="grid gap-4 md:grid-cols-3">
-            {skillDeck.map((item) => {
-              const Icon = item.icon;
-              return (
-              <article key={item.title} className="hud-card p-5">
-                <div className="mb-3 flex items-center gap-2 text-cyan-200">
-                  <Icon size={18} />
-                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+        <div className="container">
+          <section id="home" className="hero section">
+            <motion.div className="hero__copy" {...introMotion}>
+              <div className="hero__eyebrows">
+                <span className="eyebrow-badge">Cloud + AI + Product Engineer Path</span>
+                <span className="eyebrow-badge eyebrow-badge--soft">Available Now</span>
+              </div>
+
+              <h1>
+                Building web products that look sharper,
+                <span> move faster, and think bigger.</span>
+              </h1>
+
+              <p className="hero__identity">
+                I build <TypeCycle items={heroMessages} reducedMotion={prefersReducedMotion} />
+              </p>
+
+              <p className="hero__summary">
+                Computer Science major at San Antonio College with internship experience, secure systems
+                curiosity, and a product-minded approach to React, backend architecture, cloud growth, and
+                interactive experiences.
+              </p>
+
+              <div className="hero__actions">
+                <a href="#work" className="button button--primary">
+                  View Selected Work <ArrowRight size={16} />
+                </a>
+                <a href="#contact" className="button button--secondary">
+                  Start a Conversation
+                </a>
+                <a href="mailto:rchapman16@student.alamo.edu?subject=Resume%20Request" className="button button--ghost">
+                  Request Resume <Mail size={16} />
+                </a>
+              </div>
+
+              <div className="hero__availability">
+                {availabilityTags.map((tag) => (
+                  <span key={tag} className="availability-pill">
+                    <Sparkles size={14} />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div className="hero__visual" {...introMotion} transition={{ duration: 0.75, delay: 0.12 }}>
+              <article className="glass-panel profile-card">
+                <div className="profile-card__top">
+                  <span className="eyebrow-badge eyebrow-badge--soft">Builder Snapshot</span>
+                  <BadgeCheck size={18} />
                 </div>
-                <ul className="space-y-1 text-sm text-slate-300">
-                  {item.points.map((point) => (
-                    <li key={point}>• {point}</li>
+
+                <div className="profile-card__identity">
+                  <div className="profile-card__avatar-wrap">
+                    <img src={headshot} alt="Randall Chapman-Bey portrait" className="profile-card__avatar" />
+                  </div>
+                  <div>
+                    <h2>Randall Chapman-Bey</h2>
+                    <p>
+                      Full-stack developer focused on secure systems, product execution, realtime ideas, and
+                      experiences that feel alive instead of generic.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="profile-card__stats">
+                  <div>
+                    <span>Focus</span>
+                    <strong>Cloud + AI + Realtime</strong>
+                  </div>
+                  <div>
+                    <span>Strength</span>
+                    <strong>Builder + Systems Lens</strong>
+                  </div>
+                  <div>
+                    <span>Status</span>
+                    <strong>Internships / Junior Roles</strong>
+                  </div>
+                </div>
+              </article>
+
+              <article className="glass-panel signal-card">
+                <div className="signal-card__header">
+                  <p className="section-kicker">What you get when you hire me</p>
+                  <h3>Range, initiative, and product energy.</h3>
+                </div>
+                <div className="signal-card__grid">
+                  <div className="signal-card__item">
+                    <Code2 size={18} />
+                    <div>
+                      <strong>Shipping instinct</strong>
+                      <span>I turn ideas into usable interfaces and working systems.</span>
+                    </div>
+                  </div>
+                  <div className="signal-card__item">
+                    <Shield size={18} />
+                    <div>
+                      <strong>Security mindset</strong>
+                      <span>I think about trust, remediation, and safer defaults.</span>
+                    </div>
+                  </div>
+                  <div className="signal-card__item">
+                    <Workflow size={18} />
+                    <div>
+                      <strong>Growth trajectory</strong>
+                      <span>Cloud, AI, and realtime systems are all active paths.</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </motion.div>
+          </section>
+
+          <motion.section id="impact" className="section" {...revealMotion}>
+            <SectionHeading
+              eyebrow="Impact Dashboard"
+              title="Proof that reads like product engineering, not just student work."
+              description="The goal is simple: make recruiters see scope, initiative, and execution within seconds."
+            />
+
+            <div className="impact-layout">
+              <div className="impact-grid">
+                {impactStats.map((stat) => (
+                  <article key={stat.label} className="glass-panel stat-card">
+                    <span>{stat.label}</span>
+                    <strong>{stat.value}</strong>
+                    <p>{stat.detail}</p>
+                  </article>
+                ))}
+              </div>
+
+              <article className="glass-panel impact-brief">
+                <p className="section-kicker">Why this portfolio lands harder now</p>
+                <h3>It positions you as a product-minded engineer.</h3>
+                <ul>
+                  {impactHighlights.map((item) => (
+                    <li key={item}>
+                      <CheckCircle2 size={16} />
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
               </article>
-              );
-            })}
-          </div>
-        </section>
+            </div>
+          </motion.section>
 
-        <section className="grid gap-5 md:grid-cols-2">
-          <article className="hud-card p-6">
-            <h2 className="font-orbitron mb-3 text-xl text-cyan-200">Contact</h2>
-            <p className="mb-2 text-slate-200">rchapman16@student.alamo.edu</p>
-            <p className="mb-4 text-sm text-slate-400">
-              Open to internships, junior engineering roles, and collaboration.
-            </p>
-            <p className="text-xs text-slate-500">
-              Backend: Custom API endpoint at <code>/api/contact</code> (server-side key protected).
-            </p>
-          </article>
+          <motion.section id="work" className="section" {...revealMotion}>
+            <SectionHeading
+              eyebrow="Featured Work"
+              title="Projects that feel like experiences instead of flat thumbnails."
+              description="Each card is positioned to show what was built, why it matters, and how it reflects your range."
+            />
 
-          <article className="hud-card p-6">
-            <h2 className="font-orbitron mb-3 text-xl text-cyan-200">Transmit Message</h2>
-            <form className="space-y-3" onSubmit={handleSubmit}>
-              <input
-                name="name"
-                type="text"
-                placeholder="Your Name"
-                className="hud-input"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Your Email"
-                className="hud-input"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows={4}
-                className="hud-input resize-none"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="humanCheck"
-                type="text"
-                placeholder="Human check: what is 4 + 3?"
-                className="hud-input"
-                value={formData.humanCheck}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="website"
-                type="text"
-                className="hidden"
-                tabIndex={-1}
-                autoComplete="off"
-                value={formData.website}
-                onChange={handleChange}
-                aria-hidden="true"
-              />
-              <button type="submit" className="launch-button" disabled={isSubmitting}>
-                <Send size={15} /> {isSubmitting ? "Transmitting..." : "Launch Message"}
-              </button>
-            </form>
-            {submitStatus.type === "success" && (
-              <p className="status-note status-note--success">
-                <CheckCircle2 size={15} /> {submitStatus.message}
-              </p>
-            )}
-            {submitStatus.type === "error" && (
-              <p className="status-note status-note--error">
-                <XCircle size={15} /> {submitStatus.message}
-              </p>
-            )}
-          </article>
-        </section>
+            <div className="projects-grid">
+              {featuredProjects.map((project) => (
+                <motion.article
+                  key={project.title}
+                  className={`project-card glass-panel${project.featured ? " project-card--featured" : ""}`}
+                  style={{ "--accent": project.accent }}
+                  whileHover={prefersReducedMotion ? undefined : { y: -8, scale: 1.01 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                >
+                  <div className="project-card__header">
+                    <div>
+                      <span className="project-card__eyebrow">{project.eyebrow}</span>
+                      <h3>{project.title}</h3>
+                    </div>
+                    <span className="project-card__category">{project.category}</span>
+                  </div>
+
+                  <p className="project-card__summary">{project.summary}</p>
+
+                  {project.image && (
+                    <div className="project-card__image-wrap">
+                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading="lazy" decoding="async" />
+                    </div>
+                  )}
+
+                  <p className="project-card__metric">{project.metric}</p>
+
+                  <div className="chip-row">
+                    {project.stack.map((item) => (
+                      <span key={item} className="chip-row__item">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <ul className="project-card__list">
+                    {project.bullets.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+
+                  <div className="project-card__actions">
+                    {project.actions.map((action) => (
+                      <a
+                        key={action.label}
+                        href={action.href}
+                        target={action.external ? "_blank" : undefined}
+                        rel={action.external ? "noreferrer" : undefined}
+                      >
+                        {action.label}
+                        <ArrowUpRight size={15} />
+                      </a>
+                    ))}
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section id="signature" className="section" {...revealMotion}>
+            <div className="signature-layout">
+              <div className="signature-copy">
+                <SectionHeading
+                  eyebrow="Signature Feature"
+                  title="A memorable lane: music, realtime systems, and gameplay-inspired interaction."
+                  description="This is the part that gives the portfolio its own fingerprint instead of looking like every other junior dev site."
+                />
+
+                <p>
+                  The strongest through-line in your work is not just that you code. It is that you build
+                  interactive systems people can feel. Social music, cloud-backed features, plugin concepts, and
+                  game-inspired design all point in the same direction.
+                </p>
+
+                <div className="signature-tags">
+                  {signatureTags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <article className="glass-panel signature-visual">
+                <div className="signature-visual__stage">
+                  <div className="visualizer">
+                    {visualizerBars.map((height, index) => (
+                      <span
+                        key={`${height}-${index}`}
+                        className="visualizer__bar"
+                        style={{ "--bar-height": `${height}%`, "--bar-delay": `${index * 0.08}s` }}
+                      />
+                    ))}
+                  </div>
+
+                  <span className="orbit-chip orbit-chip--one">Social Feed</span>
+                  <span className="orbit-chip orbit-chip--two">Realtime Sync</span>
+                  <span className="orbit-chip orbit-chip--three">Plugin R&amp;D</span>
+                  <span className="orbit-chip orbit-chip--four">Cloud Roadmap</span>
+                </div>
+
+                <div className="signature-visual__footer">
+                  <div>
+                    <p className="section-kicker">Signature direction</p>
+                    <h3>Experiences that feel alive.</h3>
+                  </div>
+                  <p>
+                    From product builds to Unreal-adjacent experiments, the common thread is memorable interaction
+                    backed by real engineering choices.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </motion.section>
+
+          <motion.section id="stack" className="section" {...revealMotion}>
+            <SectionHeading
+              eyebrow="Visual Stack"
+              title="A clean stack map of where you ship today and where you are pushing next."
+              description="The bars represent current build focus, not inflated self-ratings."
+            />
+
+            <div className="stack-grid">
+              {stackGroups.map((group) => {
+                const Icon = group.icon;
+
+                return (
+                  <article key={group.title} className="glass-panel stack-card">
+                    <div className="stack-card__header">
+                      <span className="stack-card__icon">
+                        <Icon size={18} />
+                      </span>
+                      <div>
+                        <h3>{group.title}</h3>
+                        <p>{group.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="stack-card__meter" aria-hidden="true">
+                      <div className="stack-card__meter-fill" style={{ width: `${group.focus}%` }} />
+                    </div>
+                    <p className="stack-card__caption">Current build focus: {group.focus}%</p>
+
+                    <div className="chip-row chip-row--stack">
+                      {group.tools.map((tool) => (
+                        <span key={tool} className="chip-row__item">
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+
+                    <p className="stack-card__growth">Currently learning: {group.growth}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </motion.section>
+
+          <motion.section id="story" className="section" {...revealMotion}>
+            <div className="story-layout">
+              <div>
+                <SectionHeading
+                  eyebrow="My Journey"
+                  title="A real story section that makes the portfolio more human and more strategic."
+                  description="This gives recruiters context for your grit, direction, and momentum without turning into fluff."
+                />
+                <p className="story-intro">
+                  I learned the craft by building real things first, solving messy problems, and improving through
+                  repetition. That foundation now connects with formal computer science study, internship experience,
+                  and a growing focus on cloud, AI, product engineering, and secure systems.
+                </p>
+              </div>
+
+              <div className="story-grid">
+                {storySteps.map((step) => {
+                  const Icon = step.icon;
+
+                  return (
+                    <article key={step.title} className="glass-panel story-card">
+                      <span className="story-card__icon">
+                        <Icon size={18} />
+                      </span>
+                      <h3>{step.title}</h3>
+                      <p>{step.detail}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section id="logs" className="section" {...revealMotion}>
+            <SectionHeading
+              eyebrow="Dev Logs"
+              title="Technical stories that show communication skill and engineering judgment."
+              description="Even a small log section helps hiring teams see how you think, not just what you shipped."
+            />
+
+            <div className="logs-grid">
+              {devLogs.map((post) => (
+                <article key={post.title} className="glass-panel log-card">
+                  <div className="log-card__meta">
+                    <span>
+                      <NotebookPen size={14} />
+                      {post.readTime}
+                    </span>
+                    <BookOpenText size={16} />
+                  </div>
+                  <h3>{post.title}</h3>
+                  <p>{post.summary}</p>
+                  <div className="chip-row chip-row--stack">
+                    {post.tags.map((tag) => (
+                      <span key={tag} className="chip-row__item">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section id="contact" className="section contact-section" {...revealMotion}>
+            <div className="contact-layout">
+              <article className="glass-panel contact-panel">
+                <p className="section-kicker">Ready for hiring conversations</p>
+                <h2>Available for internships, junior roles, and ambitious product builds.</h2>
+                <p>
+                  If you need someone who can code, learn fast, care about experience quality, and grow into cloud
+                  and AI-heavy work, let’s talk.
+                </p>
+
+                <div className="contact-panel__details">
+                  <div>
+                    <Mail size={16} />
+                    <span>rchapman16@student.alamo.edu</span>
+                  </div>
+                  <div>
+                    <Github size={16} />
+                    <span>github.com/profitboysub0-max</span>
+                  </div>
+                  <div>
+                    <Linkedin size={16} />
+                    <span>LinkedIn profile available below</span>
+                  </div>
+                </div>
+
+                <div className="contact-panel__actions">
+                  <a href="https://github.com/profitboysub0-max/" target="_blank" rel="noreferrer">
+                    GitHub <ArrowUpRight size={15} />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/randall-chapman-bey-488509253/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    LinkedIn <ArrowUpRight size={15} />
+                  </a>
+                  <a href="mailto:rchapman16@student.alamo.edu?subject=Resume%20Request">
+                    Request Resume <ArrowUpRight size={15} />
+                  </a>
+                </div>
+              </article>
+
+              <article className="glass-panel form-panel">
+                <div className="form-panel__intro">
+                  <p className="section-kicker">Contact CTA</p>
+                  <h3>Send a message</h3>
+                  <p>The contact API is still active, so the redesign stays practical, not just pretty.</p>
+                </div>
+
+                <form className="contact-form" onSubmit={handleSubmit}>
+                  <label>
+                    <span>Name</span>
+                    <input name="name" type="text" value={formData.name} onChange={handleChange} required />
+                  </label>
+                  <label>
+                    <span>Email</span>
+                    <input name="email" type="email" value={formData.email} onChange={handleChange} required />
+                  </label>
+                  <label>
+                    <span>Message</span>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Human check</span>
+                    <input
+                      name="humanCheck"
+                      type="text"
+                      placeholder="What is 4 + 3?"
+                      value={formData.humanCheck}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                  <input
+                    name="website"
+                    type="text"
+                    className="contact-form__honeypot"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={handleChange}
+                    aria-hidden="true"
+                  />
+                  <button type="submit" className="button button--primary button--full" disabled={isSubmitting}>
+                    <Send size={16} />
+                    {isSubmitting ? "Sending..." : "Launch Message"}
+                  </button>
+                </form>
+
+                {submitStatus.type === "success" && (
+                  <p className="status-note status-note--success">
+                    <CheckCircle2 size={15} />
+                    {submitStatus.message}
+                  </p>
+                )}
+                {submitStatus.type === "error" && (
+                  <p className="status-note status-note--error">
+                    <XCircle size={15} />
+                    {submitStatus.message}
+                  </p>
+                )}
+              </article>
+            </div>
+          </motion.section>
+        </div>
+
+        <footer className="container footer">
+          <p>Designed in React with Framer Motion, a custom particle backdrop, stronger storytelling, and sharper hiring signals.</p>
+          <span>VEX PROFITUS // Randall Chapman-Bey</span>
+        </footer>
       </div>
     </main>
   );
 }
 
 export default App;
+
+
+
+
+
