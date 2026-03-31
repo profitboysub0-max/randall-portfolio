@@ -27,7 +27,7 @@ import {
   XCircle
 } from "lucide-react";
 import headshot from "./assets/project1.png.jpg";
-import honeyBadger from "./assets/honey-badger.png";
+import honeyBadger from "./assets/honey-badger-mobile.jpg";
 
 const heroMessages = [
   "scalable cloud + AI-powered web apps.",
@@ -116,6 +116,8 @@ const featuredProjects = [
     accent: "110 231 183",
     image: honeyBadger,
     imageAlt: "Honey Badger cyber incident response illustration",
+    imageWidth: 1024,
+    imageHeight: 1536,
     imagePriority: true
   },
   {
@@ -775,7 +777,7 @@ function App() {
 
                   {project.image && (
                     <div className="project-card__image-wrap">
-                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading={project.imagePriority ? "eager" : "lazy"} decoding="async" />
+                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading={project.imagePriority ? "eager" : "lazy"} decoding="async" width={project.imageWidth} height={project.imageHeight} />
                     </div>
                   )}
 
