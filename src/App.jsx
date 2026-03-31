@@ -115,7 +115,8 @@ const featuredProjects = [
     ],
     accent: "110 231 183",
     image: honeyBadger,
-    imageAlt: "Honey Badger cyber incident response illustration"
+    imageAlt: "Honey Badger cyber incident response illustration",
+    imagePriority: true
   },
   {
     title: "NVC Wildcats AI & Cloud Club",
@@ -774,7 +775,7 @@ function App() {
 
                   {project.image && (
                     <div className="project-card__image-wrap">
-                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading="lazy" decoding="async" />
+                      <img src={project.image} alt={project.imageAlt} className="project-card__image" loading={project.imagePriority ? "eager" : "lazy"} decoding="async" />
                     </div>
                   )}
 
