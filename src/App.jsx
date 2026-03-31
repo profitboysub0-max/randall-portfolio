@@ -114,9 +114,10 @@ const featuredProjects = [
     ],
     accent: "110 231 183",
     image: "/honey-badger.jpg",
+    imageFallback: "/honey-badger.jpg?v=2",
     imageAlt: "Honey Badger cyber incident response illustration",
-    imageWidth: 1024,
-    imageHeight: 1536,
+    imageWidth: 800,
+    imageHeight: 1200,
     imagePriority: true
   },
   {
@@ -776,9 +777,9 @@ function App() {
 
                   {project.image && (
                     <div className="project-card__image-wrap">
-                                            <img
+                                                                  <img
                         src={project.image}
-                        srcSet={project.image}
+                        srcSet={`${project.image} 1x, ${project.imageFallback || project.image} 2x`}
                         sizes="(max-width: 820px) 92vw, 640px"
                         alt={project.imageAlt}
                         className="project-card__image"
@@ -787,6 +788,12 @@ function App() {
                         crossOrigin="anonymous"
                         width={project.imageWidth}
                         height={project.imageHeight}
+                        onError={(e) => {
+                          const fallback = project.imageFallback || project.image;
+                          if (e.currentTarget.src !== fallback) {
+                            e.currentTarget.src = fallback;
+                          }
+                        }}
                       />
                     </div>
                   )}
@@ -1108,6 +1115,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
 
 
 
