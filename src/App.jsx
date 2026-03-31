@@ -27,7 +27,6 @@ import {
   XCircle
 } from "lucide-react";
 import headshot from "./assets/project1.png.jpg";
-import honeyBadger from "./assets/honey-badger-mobile.jpg";
 
 const heroMessages = [
   "scalable cloud + AI-powered web apps.",
@@ -114,7 +113,7 @@ const featuredProjects = [
       { label: "Start a Conversation", href: "#contact" }
     ],
     accent: "110 231 183",
-    image: honeyBadger,
+    image: "/honey-badger.jpg",
     imageAlt: "Honey Badger cyber incident response illustration",
     imageWidth: 1024,
     imageHeight: 1536,
@@ -1109,6 +1108,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
